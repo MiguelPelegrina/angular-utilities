@@ -1,0 +1,49 @@
+name: Publish packages
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+  packages: write
+  pages: write
+  id-token: write
+
+jobs:
+  publish-packages:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://npm.pkg.github.com/'
+          always-auth: true
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Library
+        run: pnpm build angular-material
+
+      - name: Override .npmrc authentication
+        run: |
+          echo "@miguelpelegrina:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+
+      - name: Publish to GitHub Packages
+        run: |
+          pnpm publish --no-git-checks --access public || (cat /home/runner/.npm/_logs/* && exit 1)
+        working-directory: dist/libs/ui/angular-material
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
