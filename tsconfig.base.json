@@ -17,7 +17,8 @@
     "paths": {
       "@angular-utilities/angular-material": [
         "libs/ui/angular-material/src/index.ts"
-      ]
+      ],
+      "@angular-utilities/ui-shared": ["libs/ui/shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
