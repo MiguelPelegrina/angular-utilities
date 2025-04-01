@@ -1,0 +1,6 @@
+<ng-container>
+  <h2>{{ data.title }}</h2>
+  @for (message of data.messages; track $index) {
+  <button mat-raised-button color="primary">{{ message }}</button>
+  }
+</ng-container>

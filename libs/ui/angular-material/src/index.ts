@@ -1,1 +1,1 @@
-export * from './lib/angular-material/angular-material.component';
+export * from './lib/form-template/form-template.component';

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UiSharedComponent } from './ui-shared.component';
+import { FormTemplateComponent } from './form-template.component';
 
-describe('UiSharedComponent', () => {
-  let component: UiSharedComponent;
-  let fixture: ComponentFixture<UiSharedComponent>;
+describe('FormTemplateComponent', () => {
+  let component: FormTemplateComponent;
+  let fixture: ComponentFixture<FormTemplateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiSharedComponent],
+      imports: [FormTemplateComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UiSharedComponent);
+    fixture = TestBed.createComponent(FormTemplateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
