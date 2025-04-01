@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/core": "^19.2.0",
+    "@angular/forms": "~19.2.0",
+    "@angular/material": "^19.2.7",
+    "@angular-utilities/ui-shared": "^0.0.1"
   },
   "sideEffects": false
 }

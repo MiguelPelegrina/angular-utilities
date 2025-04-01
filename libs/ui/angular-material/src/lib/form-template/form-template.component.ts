@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormData, FormElement } from '@angular-utilities/ui-shared';
+import { MatButtonModule } from '@angular/material/button';
 
 // TODO
 // Abstractions:
@@ -13,7 +14,7 @@ import { FormData, FormElement } from '@angular-utilities/ui-shared';
 // - Ideally, we would just loop through form rows and then form elements?
 @Component({
   selector: 'lib-form-template',
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './form-template.component.html',
   styleUrl: './form-template.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

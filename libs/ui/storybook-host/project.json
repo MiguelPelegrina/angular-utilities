@@ -53,7 +53,11 @@
         "outputDir": "dist/storybook/storybook-host",
         "configDir": "libs/ui/storybook-host/.storybook",
         "browserTarget": "storybook-host:build-storybook",
-        "compodoc": false
+        "compodoc": false,
+        "styles": ["@angular/material/prebuilt-themes/indigo-pink.css"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["@angular/material/prebuilt-themes/indigo-pink.css"]
+        }
       },
       "configurations": {
         "ci": {
