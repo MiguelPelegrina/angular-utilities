@@ -42,8 +42,8 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
 
       - name: Publish to GitHub Packages
-        run: |
-          pnpm publish --no-git-checks --access public || (cat /home/runner/.npm/_logs/* && exit 1)
-        working-directory: dist/libs/ui/angular-material
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: dist/libs/ui/angular-material
+        run: |
+          pnpm publish --no-git-checks --access public || (cat /home/runner/.npm/_logs/* && exit 1)
