@@ -38,16 +38,19 @@ jobs:
           echo "@angular-utilities:registry=https://npm.pkg.github.com/" >> ~/.npmrc
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
 
-          # TODO Build and publish all libraries
+      # TODO Build and publish all publishable libraries
       # - run: nx run-many --target=build --all
       # - run: nx run-many --target=publish --all
 
-      - name: Build Library
-        run: pnpm build angular-material
+      - name: Check for affected libraries
+        id: affected
+        run: |
+          echo "AFFECTED_LIBS=$(nx affected:libs --plain)" >> $GITHUB_ENV
 
-      - name: Publish to GitHub Packages
+      - name: Build and Publish If Affected
+        if: contains(env.AFFECTED_LIBS, 'angular-material')
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: dist/libs/ui/angular-material
+        # working-directory: dist/libs/ui/angular-material
         run: |
           pnpm publish --no-git-checks --access public || (cat /home/runner/.npm/_logs/* && exit 1)
