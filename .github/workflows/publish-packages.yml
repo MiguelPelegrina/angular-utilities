@@ -42,10 +42,13 @@ jobs:
       # - run: nx run-many --target=build --all
       # - run: nx run-many --target=publish --all
 
+      - name: Add NX to PATH
+        run: echo "export PATH=$(pnpm root)/.bin:\$PATH" >> $GITHUB_ENV
+
       - name: Check for affected libraries
         id: affected
         run: |
-          echo "AFFECTED_LIBS=$(nx affected:libs --plain)" >> $GITHUB_ENV
+          echo "AFFECTED_LIBS=$(npx nx affected:libs --plain)" >> $GITHUB_ENV
 
       - name: Build and Publish If Affected
         if: contains(env.AFFECTED_LIBS, 'angular-material')
