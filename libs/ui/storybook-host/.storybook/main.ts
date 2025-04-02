@@ -19,6 +19,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: true,
   },
+  staticDirs: [{ from: '../assets/i18n', to: '/assets/i18n' }],
 };
 
 export default config;

@@ -38,7 +38,18 @@
         "port": 4400,
         "configDir": "libs/ui/storybook-host/.storybook",
         "browserTarget": "storybook-host:build-storybook",
-        "compodoc": false
+        "compodoc": false,
+        "compodocArgs": [
+          "-e",
+          "json",
+          "-d",
+          ".",
+          "--minimal",
+          "--disablePrivate",
+          "--disableInternal",
+          "--disableSourceCode",
+          "--disableLifeCycleHooks"
+        ]
       },
       "configurations": {
         "ci": {
