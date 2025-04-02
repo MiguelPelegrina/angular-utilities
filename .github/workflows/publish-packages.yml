@@ -33,13 +33,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build Library
-        run: pnpm build angular-material
-
       - name: Override .npmrc authentication
         run: |
           echo "@angular-utilities:registry=https://npm.pkg.github.com/" >> ~/.npmrc
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+
+          # TODO Build and publish all libraries
+      # - run: nx run-many --target=build --all
+      # - run: nx run-many --target=publish --all
+
+      - name: Build Library
+        run: pnpm build angular-material
 
       - name: Publish to GitHub Packages
         env:

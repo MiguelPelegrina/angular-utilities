@@ -15,6 +15,17 @@ I decided to start this project because I
 - more often then not you need wrapper with default values to reduce duplication and maintain flexibility
 - tried Storybook before, but never really got to use
 
+UI component libraries
+
+- Currently
+  - Angular Material
+- Potentially
+  - PrimeNG
+  - NG Bootstrap
+  - NgZorro
+  - Nebular
+  - Taiga UI
+
 So, this project is the result of my attempt to create customizable and reusable composed/wrapper UI components with different UI libraries and other utility classes/services.
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
