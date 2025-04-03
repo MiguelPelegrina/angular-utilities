@@ -8,6 +8,7 @@ import {
 } from '@storybook/angular';
 import { TranslocoHttpLoader } from '../transloco-loader';
 import { LocaleManagerComponent } from '../locale-manager/locale-manager.component';
+import { fn } from '@storybook/test';
 
 const preview: Preview = {
   decorators: [
@@ -40,7 +41,7 @@ const preview: Preview = {
     },
   ],
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
+    actions: { onClick: fn() },
     controls: {
       matchers: {
         color: /(background|color)$/i,

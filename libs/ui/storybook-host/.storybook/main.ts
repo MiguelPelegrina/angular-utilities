@@ -11,6 +11,7 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     '@storybook/addon-storysource',
+    '@chromatic-com/storybook',
   ],
   framework: {
     name: '@storybook/angular',
