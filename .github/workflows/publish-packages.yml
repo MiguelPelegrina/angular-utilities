@@ -48,7 +48,9 @@ jobs:
       - name: Check for affected libraries
         id: affected
         run: |
-          echo "AFFECTED_LIBS=$(npx nx affected:libs --plain)" >> $GITHUB_ENV
+          source $GITHUB_ENV
+          AFFECTED_LIBS=$(npx nx show projects --affected --base=origin/main --head=HEAD --type lib)
+          echo "AFFECTED_LIBS=$AFFECTED_LIBS" >> $GITHUB_ENV
 
       - name: Build and Publish If Affected
         if: contains(env.AFFECTED_LIBS, 'angular-material')
@@ -56,4 +58,5 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # working-directory: dist/libs/ui/angular-material
         run: |
+          pnpm build angular-material
           pnpm publish --no-git-checks --access public || (cat /home/runner/.npm/_logs/* && exit 1)
