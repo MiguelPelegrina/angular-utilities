@@ -19,8 +19,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/ui/angular-material/ng-package.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "project": "libs/ui/angular-material/ng-package.json"
       },
       "configurations": {
         "production": {
