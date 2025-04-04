@@ -8,6 +8,9 @@
     "@angular/material": "^19.2.7",
     "@angular-utilities/ui-shared": "^0.0.1"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "sideEffects": false,
   "repository": {
     "type": "git",
