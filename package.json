@@ -13,7 +13,7 @@
     "build-storybook": "nx build-storybook storybook-host",
     "prepare": "husky"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/cdk": "^19.2.8",
     "@angular/common": "~19.2.5",
