@@ -44,26 +44,8 @@ jobs:
           echo "@angular-utilities:registry=https://npm.pkg.github.com/" >> ~/.npmrc
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
 
-      # TODO Build and publish all publishable libraries
-      # - run: nx run-many --target=build --all
-      # - run: nx run-many --target=publish --all
-
       - name: Add NX to PATH
         run: echo "export PATH=$(pnpm root)/.bin:\$PATH" >> $GITHUB_ENV
-
-      # - name: Check for affected libraries
-      #   id: affected
-      #   run: |
-      #     AFFECTED_LIBS=$(npx nx show projects --affected --base=origin/main --head=HEAD --type lib)
-      #     echo "affected_libs=$AFFECTED_LIBS" >> "$GITHUB_OUTPUT"
-
-      # - name: Auto bump version if affected
-      #   if: contains(steps.affected.outputs.affected_libs, 'angular-material')
-      #   run: |
-      #     pnpm nx run angular-material:version --no-push --skip-project-changelog
-      #     git add .
-      #     git commit -m "chore(release): version bump [skip ci]" || echo "No changes to commit"
-      #     git push
 
       - name: Build and Publish If Affected
         env:

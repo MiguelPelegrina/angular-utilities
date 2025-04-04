@@ -1,5 +1,5 @@
 {
-  "name": "angular-material",
+  "name": "@MiguelPelegrina/angular-material",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/angular-material/src",
   "prefix": "lib",
