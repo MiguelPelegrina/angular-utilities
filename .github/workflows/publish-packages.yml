@@ -41,7 +41,6 @@ jobs:
       - name: Add NX to PATH
         run: echo "export PATH=$(pnpm root)/.bin:\$PATH" >> $GITHUB_ENV
 
-      # Scale this up for all libraries and automate bumping up versions after changes
       - name: Build and Publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
