@@ -19,6 +19,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
+
+      - name: Setup Git for versioning
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -56,8 +62,6 @@ jobs:
         if: contains(env.AFFECTED_LIBS, 'angular-material')
         run: |
           pnpm nx run angular-material:version --no-push --skip-project-changelog
-          git config user.name github-actions
-          git config user.email github-actions@github.com
           git add .
           git commit -m "chore(release): version bump [skip ci]" || echo "No changes to commit"
 
