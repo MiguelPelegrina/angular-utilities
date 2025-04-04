@@ -52,11 +52,19 @@ jobs:
           AFFECTED_LIBS=$(npx nx show projects --affected --base=origin/main --head=HEAD --type lib)
           echo "AFFECTED_LIBS=$AFFECTED_LIBS" >> $GITHUB_ENV
 
+      - name: Auto bump version if affected
+        if: contains(env.AFFECTED_LIBS, 'angular-material')
+        run: |
+          pnpm nx run angular-material:version --no-push --skip-project-changelog
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "chore(release): version bump [skip ci]" || echo "No changes to commit"
+
       - name: Build and Publish If Affected
         if: contains(env.AFFECTED_LIBS, 'angular-material')
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # working-directory: dist/libs/ui/angular-material
         run: |
           pnpm build angular-material
           pnpm publish --no-git-checks --access public || (cat /home/runner/.npm/_logs/* && exit 1)

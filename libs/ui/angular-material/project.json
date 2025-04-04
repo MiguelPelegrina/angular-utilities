@@ -43,6 +43,15 @@
         "jestConfig": "libs/ui/angular-material/jest.config.ts"
       }
     },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "syncVersions": false,
+        "changelog": true,
+        "commit": true,
+        "baseBranch": "main"
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }
