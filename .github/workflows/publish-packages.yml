@@ -51,14 +51,7 @@ jobs:
       - name: Add NX to PATH
         run: echo "export PATH=$(pnpm root)/.bin:\$PATH" >> $GITHUB_ENV
 
-      - name: Check for affected libraries
-        id: affected
-        run: |
-          AFFECTED_LIBS=$(npx nx show projects --affected --base=origin/main --head=HEAD --type lib)
-          echo "affected_libs=$AFFECTED_LIBS" >> "$GITHUB_OUTPUT"
-
       - name: Auto bump version if affected
-        if: contains(steps.affected.outputs.affected_libs, 'angular-material')
         run: |
           pnpm nx run angular-material:version --no-push --skip-project-changelog
           git add .
@@ -66,7 +59,6 @@ jobs:
           git push
 
       - name: Build and Publish If Affected
-        if: contains(steps.affected.outputs.affected_libs, 'angular-material')
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
