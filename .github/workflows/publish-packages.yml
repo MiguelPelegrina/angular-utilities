@@ -47,4 +47,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pnpm build angular-material
-          pnpm publish angular-material --no-git-checks --access public || (cat /home/runner/.npm/_logs/* && exit 1)
+          pnpm publish --no-git-checks --access public || (cat /home/runner/.npm/_logs/* && exit 1)
