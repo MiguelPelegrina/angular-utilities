@@ -41,9 +41,12 @@ jobs:
       - name: Add NX to PATH
         run: echo "export PATH=$(pnpm root)/.bin:\$PATH" >> $GITHUB_ENV
 
-      - name: Build and Publish
+      - name: Build Library
+        run: pnpm build angular-material
+
+      - name: Publish to GitHub Packages
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: dist/libs/ui/angular-material
         run: |
-          pnpm build angular-material
           pnpm publish --no-git-checks --access public || (cat /home/runner/.npm/_logs/* && exit 1)
