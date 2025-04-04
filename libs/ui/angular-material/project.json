@@ -4,6 +4,9 @@
   "sourceRoot": "libs/ui/angular-material/src",
   "prefix": "lib",
   "projectType": "library",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "release": {
     "version": {
       "generatorOptions": {
