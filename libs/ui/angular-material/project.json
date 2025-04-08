@@ -16,9 +16,13 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/angular:package",
+      "executor": "@jscutlery/semver:version",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
+        "syncVersions": false,
+        "changelog": true,
+        "commit": true,
+        "baseBranch": "main",
         "project": "libs/ui/angular-material/ng-package.json"
       },
       "configurations": {
