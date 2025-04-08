@@ -31,7 +31,7 @@ jobs:
           always-auth: true
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Override .npmrc authentication
         run: |

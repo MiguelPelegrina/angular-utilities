@@ -16,13 +16,9 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@jscutlery/semver:version",
+      "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "syncVersions": false,
-        "changelog": true,
-        "commit": true,
-        "baseBranch": "main",
         "project": "libs/ui/angular-material/ng-package.json"
       },
       "configurations": {
@@ -58,6 +54,12 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "release": {
+      "executor": "@jscutlery/semver:release-publish",
+      "options": {
+        "tag": "latest"
+      }
     }
   }
 }
