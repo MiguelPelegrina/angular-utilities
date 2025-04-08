@@ -1,1 +1,1 @@
-export * from './lib/form-template/form-template.component';
+export * from './lib/components/form-template/form-template.component';
