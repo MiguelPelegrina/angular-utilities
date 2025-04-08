@@ -1,4 +1,4 @@
-import { FormElement } from './form-element.interface';
+import { FormElement } from '../interfaces/form-element.interface';
 
 export interface FormData {
   title: string;
