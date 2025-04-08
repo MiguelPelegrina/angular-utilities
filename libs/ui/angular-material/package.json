@@ -1,6 +1,6 @@
 {
   "name": "@MiguelPelegrina/angular-material",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.2.5",
     "@angular/core": "^19.2.5",
