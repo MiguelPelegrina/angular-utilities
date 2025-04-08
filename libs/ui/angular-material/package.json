@@ -5,7 +5,8 @@
     "@angular/common": "^19.2.5",
     "@angular/core": "^19.2.5",
     "@angular/forms": "~19.2.5",
-    "@angular/material": "^19.2.7"
+    "@angular/material": "^19.2.7",
+    "@angular-utilities/ui-shared": "^0.0.1"
   },
   "sideEffects": false,
   "publishConfig": {

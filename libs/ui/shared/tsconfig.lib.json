@@ -13,8 +13,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": [
-    "src/**/*.ts",
-    "../angular-material/src/lib/interfaces/form-data.interface.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }

@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormData, FormElement } from '@angular-utilities/ui-shared';
 import { MatButtonModule } from '@angular/material/button';
-import { FormElement } from '../../interfaces/form-element.interface';
-import { FormData } from '../../interfaces/form-data.interface';
 
 // TODO
 // Abstractions:
