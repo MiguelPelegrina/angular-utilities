@@ -1,8 +1,0 @@
-{
-  "name": "@angular-utilities/ui-shared",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/forms": "^19.2.0"
-  },
-  "sideEffects": false
-}
