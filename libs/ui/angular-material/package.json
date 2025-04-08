@@ -6,9 +6,7 @@
     "@angular/core": "^19.2.5",
     "@angular/forms": "~19.2.5",
     "@angular/material": "^19.2.7",
-    "@angular-utilities/ui-shared": "^0.0.1",
-    "@storybook/angular": "^8.6.12",
-    "jest-preset-angular": "^14.4.2"
+    "@angular-utilities/ui-shared": "^0.0.1"
   },
   "sideEffects": false,
   "publishConfig": {
