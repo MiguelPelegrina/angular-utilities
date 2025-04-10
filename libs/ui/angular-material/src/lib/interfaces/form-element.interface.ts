@@ -1,7 +1,7 @@
 import { AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
 /**
- * Interface representing data for form elements.
+ * Represents a form element.
  */
 export interface FormElement {
   key: string;

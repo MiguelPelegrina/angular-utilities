@@ -1,72 +1,67 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormData } from '../../interfaces/form-data.interface';
-import { FormElement } from '../../interfaces/form-element.interface';
+import { FormDataBuilder } from '../../services/form-data.service';
+import { MaterialModule } from '../../shared/material.module';
+import { onTimeInput } from '../../utils/time-utils';
 
 // TODO
 // Abstractions:
 // - Button row of buttons --> default cancel and confirm, allow for custom implementation for example for login and register
 // - CSS classes instead of Bootstrap
 // More customization:
-// - width and height of elements
-// - How form elements are split in rows
 // - Ideally, we would just loop through form rows and then form elements?
 @Component({
   selector: 'lib-form-template',
-  imports: [CommonModule, MatButtonModule],
+  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   templateUrl: './form-template.component.html',
-  styleUrl: './form-template.component.scss',
+  styleUrls: ['./form-template.component.scss', '../../styles/buttons.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormTemplateComponent {
+export class FormTemplateComponent<T> implements OnInit {
   // Fields
-  @Input() data: FormData = { title: '', messages: [], formElements: [] };
+  @Input() data?: FormData;
 
-  //@Output() formSubmit = new EventEmitter<T>();
+  @Output() formSubmit = new EventEmitter<T>();
+  @Output() formCancel = new EventEmitter<void>();
 
   public form?: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.form = this.createForm();
-    this.assignDefaultValues(this.data);
+  constructor(private formBuilder: FormDataBuilder) {}
+
+  ngOnInit(): void {
+    const { formData, formGroup } = this.formBuilder.build(this.data);
+    this.data = formData;
+    this.form = formGroup;
   }
 
   /**
-   * Assigns default values to data if not initialized previously.
-   * @param data - The data, that the form needs to work with.
+   * When the interaction is confirmed.
    */
-  private assignDefaultValues(data: FormData): void {
-    this.data = {
-      ...data,
-      showConfirmButton: data.showConfirmButton ?? true,
-      showCancelButton: data.showCancelButton ?? false,
-      confirmButtonText: data.confirmButtonText ?? 'Delete',
-      cancelButtonText: data.cancelButtonText ?? 'Cancel',
-    };
+  protected onConfirm() {
+    this.formSubmit.emit(this.form?.value as T);
   }
 
   /**
-   * Creates a form dynamically from the received form elements.
-   * @returns A form group.
+   * When the interaction is cancelled.
    */
-  private createForm(): FormGroup {
-    const group: Record<string, object> = {};
+  protected onCancel() {
+    this.formCancel.emit();
+  }
 
-    this.data.formElements?.forEach((element: FormElement) => {
-      group[element.key] = [
-        element.value || '',
-        [
-          ...(element.required ? [Validators.required] : []),
-          ...(element.min !== undefined ? [Validators.min(element.min)] : []),
-          ...(element.max !== undefined ? [Validators.max(element.max)] : []),
-          ...(element.customValidators || []),
-        ],
-        element.customAsyncValidators || [],
-      ];
-    });
-
-    return this.formBuilder.group(group);
+  /**
+   * Handles time input and automatically formats time input to HH:mm.
+   * @param event
+   */
+  protected onTimeInput(event: Event, controlName: string): void {
+    this.form?.get(controlName)?.setValue(onTimeInput(event));
   }
 }

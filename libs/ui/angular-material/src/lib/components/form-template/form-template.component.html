@@ -1,6 +1,110 @@
+<!-- TODO Div vs ng-container -->
 <ng-container>
-  <h2>{{ data.title }}</h2>
-  @for (message of data.messages; track $index) {
-  <button mat-raised-button color="primary">{{ message }}</button>
+  <!-- TITLE -->
+  @if (data?.title; as title) {
+  <h2>{{ title }}</h2>
   }
+  <!-- /TITLE -->
+
+  <!-- MESSAGES -->
+  @for (message of data?.messages; track $index) {
+  <p>{{ message }}</p>
+  }
+  <!-- /MESSAGES -->
+
+  <!-- FORM -->
+  @if (form && data?.elements?.length) {
+
+  <ng-container [formGroup]="form">
+    @for (element of data?.elements; track element.key) {
+    <mat-form-field appearance="fill">
+      <mat-label>{{ element.label }}</mat-label>
+      @if (element.type === 'text' || element.type === 'number') {
+      <input
+        matInput
+        [formControlName]="element.key"
+        [type]="element.type"
+        [attr.min]="element.min"
+        [attr.max]="element.max"
+      />
+      }
+      <!-- TODO Time is too big without need -->
+      @if (element.type === 'time') {
+      <input
+        [formControlName]="element.key"
+        matInput
+        maxlength="5"
+        placeholder="HH:mm"
+        type="tel"
+        (input)="onTimeInput($event, element.key)"
+      />
+      } @if (element.type === 'select') {
+      <mat-select [formControlName]="element.key">
+        @for (option of element.options; track option.label) {
+        <mat-option [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+        }
+      </mat-select>
+      }
+
+      <!-- TODO 
+       - Pipe this
+       - No clue how to scale this up with translations -->
+      <!-- ERROR MESSAGES -->
+      @if (form.get(element.key)?.hasError('required')) {
+      <mat-error> {{ element.label }} is erforderlich. </mat-error>
+      } @if (form.get(element.key)?.hasError('min')) {
+      <mat-error>
+        {{ element.label }} muss mindestes {{ element.min }} sein.
+      </mat-error>
+      } @if (form.get(element.key)?.hasError('max')) {
+      <mat-error>
+        {{ element.label }} kann maximal {{ element.max }} sein.
+      </mat-error>
+      } @if (form.get(element.key)?.hasError('nameNotUnique')) {
+      <mat-error> Der Name wird bereits verwendet. </mat-error>
+      } @if (form.get(element.key)?.hasError('invalidIpAddress')) {
+      <mat-error> Format: xxx.xxx.xxx.xxx </mat-error>
+      } @if (form.get(element.key)?.hasError('hasWhitespace')) {
+      <mat-error> Es ist kein Leerzeichen erlaubt. </mat-error>
+      } @if ( form.get(element.key)?.hasError('pattern') &&
+      form.get(element.key)?.touched ) {
+      <mat-error>
+        Geben Sie eine gültige Zeit im Format "HH:mm" ein.
+      </mat-error>
+      }
+      <!-- /ERROR MESSAGES -->
+    </mat-form-field>
+    }
+  </ng-container>
+  }
+  <!-- /FORM -->
+
+  <!-- BUTTONS -->
+  @if (data?.showCancelButton || data?.showConfirmButton) {
+  <!-- CANCEL -->
+  <div class="btn-row">
+    @if (data?.showCancelButton) {
+    <button mat-raised-button (click)="onCancel()">
+      {{ data?.cancelButtonText }}
+    </button>
+    }
+    <!-- CANCEL -->
+
+    <!-- CONFIRM -->
+    @if (data?.showConfirmButton) {
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onConfirm()"
+      [disabled]="!form!.valid"
+    >
+      {{ data?.confirmButtonText }}
+    </button>
+    }
+    <!-- /CONFIRM -->
+  </div>
+  }
+  <!-- /BUTTONS -->
 </ng-container>
