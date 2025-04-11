@@ -1,46 +1,51 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
+  Inject,
+  input,
   OnInit,
-  Output,
+  output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormData } from '../../interfaces/form-data.interface';
-import { FormDataBuilder } from '../../services/form-data.service';
+import { FormDataBuilder as FormGroupBuilder } from '../../services/form-data.service';
 import { MaterialModule } from '../../shared/material.module';
 import { onTimeInput } from '../../utils/time-utils';
+import { ValidationError } from '../../pipes/validation-error.pipe';
+import { ValidationErrorMessages } from '../../interfaces/validation-error-messages.interface';
+import { ERROR_MESSAGES } from '../../providers/validation-error-messages.provider';
 
 // TODO
 // Abstractions:
-// - Button row of buttons --> default cancel and confirm, allow for custom implementation for example for login and register
-// - CSS classes instead of Bootstrap
-// More customization:
-// - Ideally, we would just loop through form rows and then form elements?
+// - Button row of buttons
+//  - allow for custom implementation for example for login and register
+//  - dont know how to output the form
+// - CSS classes instead of Bootstrap classes
 @Component({
   selector: 'lib-form-template',
-  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+  imports: [CommonModule, MaterialModule, ReactiveFormsModule, ValidationError],
   templateUrl: './form-template.component.html',
   styleUrls: ['./form-template.component.scss', '../../styles/buttons.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormTemplateComponent<T> implements OnInit {
   // Fields
-  @Input() data?: FormData;
+  data = input.required<FormData>();
 
-  @Output() formSubmit = new EventEmitter<T>();
-  @Output() formCancel = new EventEmitter<void>();
+  formSubmit = output<T>();
+  formCancel = output<void>();
+  formDelete = output<boolean>();
 
   public form?: FormGroup;
 
-  constructor(private formBuilder: FormDataBuilder) {}
+  constructor(
+    @Inject(ERROR_MESSAGES) private errorMessages: ValidationErrorMessages,
+    private formBuilder: FormGroupBuilder
+  ) {}
 
   ngOnInit(): void {
-    const { formData, formGroup } = this.formBuilder.build(this.data);
-    this.data = formData;
-    this.form = formGroup;
+    this.form = this.formBuilder.buildFormGroup(this.data());
   }
 
   /**

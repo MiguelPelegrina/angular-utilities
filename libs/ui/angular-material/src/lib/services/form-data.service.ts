@@ -28,23 +28,10 @@ export class FormDataBuilder {
    * @param data - The data to build the form data and form group from.
    * @returns An object containing the form data and the form group.
    */
-  public build(data?: FormData): {
-    formData: FormData;
-    formGroup: FormGroup;
-  } {
-    const normalizedData: FormData = {
-      title: data?.title ?? '',
-      messages: data?.messages ?? [],
-      showConfirmButton: data?.showConfirmButton ?? true,
-      showCancelButton: data?.showCancelButton ?? false,
-      confirmButtonText: data?.confirmButtonText ?? 'Submit',
-      cancelButtonText: data?.cancelButtonText ?? 'Cancel',
-      rows: data?.rows ?? [],
-    };
-
+  public buildFormGroup(formData: FormData): FormGroup {
     const formGroup = this.fb.group(
       Object.fromEntries(
-        normalizedData.rows
+        formData.rows
           .map((row) =>
             row.formElements.map((element) => {
               const control = this.fb.control(
@@ -59,7 +46,7 @@ export class FormDataBuilder {
       )
     );
 
-    return { formData: normalizedData, formGroup };
+    return formGroup;
   }
 
   /**

@@ -1,12 +1,12 @@
 <ng-container>
   <!-- TITLE -->
-  @if (data?.title; as title) {
+  @if (data().title; as title) {
   <h2>{{ title }}</h2>
   }
   <!-- /TITLE -->
 
   <!-- MESSAGES -->
-  @for (message of data?.messages; track $index) {
+  @for (message of data().messages; track $index) {
   <p>{{ message }}</p>
   }
   <!-- /MESSAGES -->
@@ -15,7 +15,7 @@
   @if (form) {
 
   <ng-container [formGroup]="form">
-    @for (row of data?.rows; track $index) {
+    @for (row of data().rows; track $index) {
     <div>
       @for (element of row.formElements; track element.key) {
       <mat-form-field appearance="fill">
@@ -51,32 +51,10 @@
         </mat-select>
         }
 
-        <!-- TODO 
-           - Pipe this
-           - No clue how to scale this up with translations -->
         <!-- ERROR MESSAGES -->
-        @if (form.get(element.key)?.hasError('required')) {
-        <mat-error> {{ element.label }} is erforderlich. </mat-error>
-        } @if (form.get(element.key)?.hasError('min')) {
         <mat-error>
-          {{ element.label }} muss mindestes {{ element.min }} sein.
+          {{ form.get(element.key)?.errors | validationError }}
         </mat-error>
-        } @if (form.get(element.key)?.hasError('max')) {
-        <mat-error>
-          {{ element.label }} kann maximal {{ element.max }} sein.
-        </mat-error>
-        } @if (form.get(element.key)?.hasError('nameNotUnique')) {
-        <mat-error> Der Name wird bereits verwendet. </mat-error>
-        } @if (form.get(element.key)?.hasError('invalidIpAddress')) {
-        <mat-error> Format: xxx.xxx.xxx.xxx </mat-error>
-        } @if (form.get(element.key)?.hasError('hasWhitespace')) {
-        <mat-error> Es ist kein Leerzeichen erlaubt. </mat-error>
-        } @if ( form.get(element.key)?.hasError('pattern') &&
-        form.get(element.key)?.touched ) {
-        <mat-error>
-          Geben Sie eine gültige Zeit im Format "HH:mm" ein.
-        </mat-error>
-        }
         <!-- /ERROR MESSAGES -->
       </mat-form-field>
       }
@@ -87,25 +65,25 @@
   <!-- /FORM -->
 
   <!-- BUTTONS -->
-  @if (data?.showCancelButton || data?.showConfirmButton) {
+  @if (data().showCancelButton || data().showConfirmButton) {
   <!-- CANCEL -->
   <div class="btn-row">
-    @if (data?.showCancelButton) {
+    @if (data().showCancelButton) {
     <button mat-raised-button (click)="onCancel()">
-      {{ data?.cancelButtonText }}
+      {{ data().cancelButtonText }}
     </button>
     }
     <!-- CANCEL -->
 
     <!-- CONFIRM -->
-    @if (data?.showConfirmButton) {
+    @if (data().showConfirmButton) {
     <button
       mat-raised-button
       color="primary"
       (click)="onConfirm()"
       [disabled]="!form!.valid"
     >
-      {{ data?.confirmButtonText }}
+      {{ data().confirmButtonText }}
     </button>
     }
     <!-- /CONFIRM -->

@@ -43,7 +43,7 @@ export const Default: Story = {
               label: 'Email',
               type: 'text',
               value: '',
-              customValidators: [Validators.required],
+              customValidators: [Validators.required, Validators.email],
             },
             {
               key: 'password',
@@ -58,8 +58,22 @@ export const Default: Story = {
           marginOfElements: 10,
           paddingOfElements: 10,
         },
+        {
+          formElements: [
+            {
+              key: 'age',
+              label: 'Age',
+              type: 'number',
+              value: '',
+              customValidators: [Validators.required, Validators.min(18)],
+            },
+          ],
+        },
       ],
       showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel',
     },
   },
 };
