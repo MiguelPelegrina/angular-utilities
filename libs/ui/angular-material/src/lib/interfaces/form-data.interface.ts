@@ -1,4 +1,4 @@
-import { FormElement } from './form-element.interface';
+import { FormRow } from './form-row.interface';
 
 /**
  * Represents the data for a form template.
@@ -6,7 +6,7 @@ import { FormElement } from './form-element.interface';
 export interface FormData {
   title?: string;
   messages: string[];
-  elements: FormElement[];
+  rows: FormRow[];
   showConfirmButton?: boolean;
   showCancelButton?: boolean;
   confirmButtonText?: string;

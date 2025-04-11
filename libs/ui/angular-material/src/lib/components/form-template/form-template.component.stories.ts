@@ -13,27 +13,50 @@ export const Default: Story = {
     data: {
       messages: ['Hello', 'these are your messages'],
       title: 'Testing',
-      elements: [
+      rows: [
         {
-          key: 'name',
-          label: 'Name',
-          type: 'text',
-          value: '',
-          customValidators: [Validators.required],
+          formElements: [
+            {
+              key: 'name',
+              label: 'Name',
+              type: 'text',
+              value: '',
+              customValidators: [Validators.required],
+            },
+            {
+              key: 'surname',
+              label: 'Surname',
+              type: 'text',
+              value: '',
+              customValidators: [Validators.required],
+            },
+          ],
+          height: 100,
+          width: 100,
+          marginOfElements: 10,
+          paddingOfElements: 10,
         },
         {
-          key: 'surname',
-          label: 'Surname',
-          type: 'text',
-          value: '',
-          customValidators: [Validators.required],
-        },
-        {
-          key: 'email',
-          label: 'Email',
-          type: 'text',
-          value: '',
-          customValidators: [Validators.required, Validators.email],
+          formElements: [
+            {
+              key: 'email',
+              label: 'Email',
+              type: 'text',
+              value: '',
+              customValidators: [Validators.required],
+            },
+            {
+              key: 'password',
+              label: 'Password',
+              type: 'password',
+              value: '',
+              customValidators: [Validators.required],
+            },
+          ],
+          height: 100,
+          width: 100,
+          marginOfElements: 10,
+          paddingOfElements: 10,
         },
       ],
       showCancelButton: true,
@@ -46,7 +69,7 @@ export const NoForm: Story = {
     data: {
       messages: ['Hello', 'these are your messages'],
       title: 'Testing',
-      elements: [],
+      rows: [],
       showConfirmButton: false,
     },
   },

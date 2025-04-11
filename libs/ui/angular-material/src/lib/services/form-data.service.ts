@@ -39,19 +39,23 @@ export class FormDataBuilder {
       showCancelButton: data?.showCancelButton ?? false,
       confirmButtonText: data?.confirmButtonText ?? 'Submit',
       cancelButtonText: data?.cancelButtonText ?? 'Cancel',
-      elements: data?.elements ?? [],
+      rows: data?.rows ?? [],
     };
 
     const formGroup = this.fb.group(
       Object.fromEntries(
-        normalizedData.elements.map((element) => [
-          element.key,
-          this.fb.control(
-            element.value ?? '',
-            this.getSyncValidators(element),
-            element.customAsyncValidators || []
-          ),
-        ])
+        normalizedData.rows
+          .map((row) =>
+            row.formElements.map((element) => {
+              const control = this.fb.control(
+                element.value ?? null,
+                this.getSyncValidators(element),
+                element.customAsyncValidators
+              );
+              return [element.key, control];
+            })
+          )
+          .flat()
       )
     );
 
