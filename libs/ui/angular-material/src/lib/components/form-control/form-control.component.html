@@ -1,0 +1,38 @@
+<div [formGroup]="form()">
+  <mat-form-field appearance="fill">
+    <mat-label>{{ element().label }}</mat-label>
+
+    @switch (element().type) { @case ('text') {
+    <input
+      matInput
+      [formControlName]="element().key"
+      type="text"
+      [attr.min]="element().min"
+      [attr.max]="element().max"
+    />
+    } @case ('number') {
+    <input
+      matInput
+      [formControlName]="element().key"
+      type="number"
+      [attr.min]="element().min"
+      [attr.max]="element().max"
+    />
+    } @case ('password') {
+    <input matInput [formControlName]="element().key" type="password" />
+    } @case ('select') {
+    <mat-select [formControlName]="element().key">
+      @for (option of element().options; track option.label) {
+      <mat-option [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+      }
+    </mat-select>
+    } }
+
+    <!-- Error messages via pipe -->
+    <mat-error>
+      {{ form().get(element().key)?.errors | validationError }}
+    </mat-error>
+  </mat-form-field>
+</div>
