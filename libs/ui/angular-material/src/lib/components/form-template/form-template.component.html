@@ -16,47 +16,18 @@
 
   <ng-container [formGroup]="form">
     @for (row of data().rows; track $index) {
-    <div>
-      @for (element of row.formElements; track element.key) {
-      <mat-form-field appearance="fill">
-        <mat-label>{{ element.label }}</mat-label>
-        <!-- TODO @switch instead of if -->
-        @if (element.type === 'text' || element.type === 'number' ||
-        element.type === 'password') {
-        <input
-          matInput
-          [formControlName]="element.key"
-          [type]="element.type"
-          [attr.min]="element.min"
-          [attr.max]="element.max"
-        />
-        }
-        <!-- TODO Time is too big without need -->
-        @if (element.type === 'time') {
-        <input
-          [formControlName]="element.key"
-          matInput
-          maxlength="5"
-          placeholder="HH:mm"
-          type="tel"
-          (input)="onTimeInput($event, element.key)"
-        />
-        } @if (element.type === 'select') {
-        <mat-select [formControlName]="element.key">
-          @for (option of element.options; track option.label) {
-          <mat-option [value]="option.value">
-            {{ option.label }}
-          </mat-option>
-          }
-        </mat-select>
-        }
-
-        <!-- ERROR MESSAGES -->
-        <mat-error>
-          {{ form.get(element.key)?.errors | validationError }}
-        </mat-error>
-        <!-- /ERROR MESSAGES -->
-      </mat-form-field>
+    <!-- TODO Refactor? -->
+    <div
+      [ngStyle]="{
+        display: 'flex',
+        'justify-content': getAlignment(row.styles?.alignment || data().styles?.alignment),
+        'height.px': row.styles?.height || data().styles?.height,
+        'width.px': row.styles?.width || data().styles?.width,
+        'gap.px': row.styles?.gap || data().styles?.gap,
+      }"
+    >
+      @for (element of row.elements; track element.key) {
+      <lib-form-control [form]="form" [element]="element"> </lib-form-control>
       }
     </div>
     }

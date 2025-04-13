@@ -6,25 +6,24 @@ import {
   OnInit,
   output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormData } from '../../interfaces/form-data.interface';
+import { FormGroup } from '@angular/forms';
+import { FormData } from '../../models/form-data.model';
 import { FormDataBuilder as FormGroupBuilder } from '../../services/form-data.service';
 import { MaterialModule } from '../../shared/material.module';
 import { onTimeInput } from '../../utils/time-utils';
-import { ValidationError } from '../../pipes/validation-error.pipe';
 import { ValidationErrorMessages } from '../../interfaces/validation-error-messages.interface';
 import { ERROR_MESSAGES } from '../../providers/validation-error-messages.provider';
+import { FormControlComponent } from '../form-control/form-control.component';
+import { SharedModule } from '../../shared/shared.module';
 
 // TODO
 // Abstractions:
 // - Button row of buttons
 //  - allow for custom implementation for example for login and register
 //  - dont know how to output the form
-// - CSS classes instead of Bootstrap classes
 @Component({
   selector: 'lib-form-template',
-  imports: [CommonModule, MaterialModule, ReactiveFormsModule, ValidationError],
+  imports: [FormControlComponent, MaterialModule, SharedModule],
   templateUrl: './form-template.component.html',
   styleUrls: ['./form-template.component.scss', '../../styles/buttons.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -68,5 +67,16 @@ export class FormTemplateComponent<T> implements OnInit {
    */
   protected onTimeInput(event: Event, controlName: string): void {
     this.form?.get(controlName)?.setValue(onTimeInput(event));
+  }
+
+  protected getAlignment(alignment?: 'left' | 'right' | 'center'): string {
+    switch (alignment) {
+      case 'left':
+        return 'flex-start';
+      case 'right':
+        return 'flex-end';
+      default:
+        return 'center';
+    }
   }
 }
