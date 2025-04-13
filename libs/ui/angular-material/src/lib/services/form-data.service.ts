@@ -5,8 +5,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { FormData } from '../interfaces/form-data.interface';
-import { FormElement } from '../interfaces/form-element.interface';
+import { FormData } from '../models/form-data.model';
+import { FormElement } from '../models/form-element.model';
 
 /**
  * Service to build form data and form groups.
@@ -33,11 +33,11 @@ export class FormDataBuilder {
       Object.fromEntries(
         formData.rows
           .map((row) =>
-            row.formElements.map((element) => {
+            row.elements.map((element) => {
               const control = this.fb.control(
                 element.value ?? null,
                 this.getSyncValidators(element),
-                element.customAsyncValidators
+                element.asyncValidators
               );
               return [element.key, control];
             })
@@ -50,7 +50,7 @@ export class FormDataBuilder {
   }
 
   /**
-   *
+   * Gets the synchronous validators for a form element.
    * @param formElement - The form element to get the validators for.
    * @returns An array of synchronous validators for the form element.
    */
@@ -63,7 +63,7 @@ export class FormDataBuilder {
       ...(formElement.max !== undefined
         ? [Validators.max(formElement.max)]
         : []),
-      ...(formElement.customValidators || []),
+      ...(formElement.validators || []),
     ];
   }
 }

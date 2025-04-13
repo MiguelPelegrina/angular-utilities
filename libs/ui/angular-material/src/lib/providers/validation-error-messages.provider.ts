@@ -1,5 +1,4 @@
 // An InjectionToken used to provide and inject error message configuration.
-
 import { InjectionToken, Provider } from '@angular/core';
 import { ValidationErrorMessages } from '../interfaces/validation-error-messages.interface';
 import { ERROR_MESSAGES_VALUE } from '../constants/validation-error-messages.constant';
