@@ -1,0 +1,87 @@
+$padding-small: 0.5rem;
+$border-color: #fafafa;
+
+@media (max-width: 768px) {
+  .mat-mdc-table[appMatTableResponsive] {
+    .mat-mdc-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      height: auto;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+
+      th.mat-mdc-header-cell {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        padding: 1rem $padding-small;
+        justify-content: space-around;
+
+        & > .mat-sort-header-container {
+          padding-left: 15px; // padding is used to center the header table cells, due to the width of the sort icon
+        }
+
+        &:not([mat-sort-header]),
+        &.mat-sort-header-disabled,
+        &.mat-column-actions {
+          display: none;
+        }
+      }
+    }
+
+    .mat-mdc-row {
+      height: auto;
+
+      td.mat-mdc-cell:not(.mat-column-actions) {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        padding: $padding-small;
+        text-align: right;
+        word-break: break-word;
+
+        & > * {
+          grid-column: 2;
+        }
+
+        &:before {
+          content: attr(data-column-name);
+          text-align: left;
+        }
+      }
+
+      td.mat-column-actions {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 1rem $padding-small;
+
+        & > button {
+          margin: $padding-small 0;
+        }
+      }
+
+      &:last-of-type td:last-of-type {
+        border: none;
+      }
+
+      &:not(:last-of-type) td:last-of-type {
+        border-bottom: $padding-small solid $border-color;
+      }
+    }
+  }
+
+  .mat-mdc-card,
+  .mat-mdc-expansion-panel {
+    .mat-mdc-table[appMatTableResponsive] {
+      border: $padding-small solid $border-color;
+    }
+  }
+
+  // A little bit hacky, but I found no other solution:
+  // Mat Table doesnt show the bottom border of the last element for visual reasons, it just looks better.
+  // Problem is it skips bottom border completely when applying to mobile, so the last element of the table
+  // does not have any bottom borders at all.
+  .mdc-data-table__row:last-child .mat-mdc-cell:not(.mat-column-actions) {
+    border-bottom: 0.1rem solid var(--mat-table-row-item-outline-color) !important;
+  }
+}
