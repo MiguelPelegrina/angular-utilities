@@ -8,27 +8,18 @@ export class FormData {
   title?: string;
   messages: string[];
   rows: FormRow[];
-  showConfirmButton;
-  showCancelButton;
-  confirmButtonText;
-  cancelButtonText;
-  styles?: FormStyles;
+  showConfirmButton: boolean;
+  showCancelButton: boolean;
+  confirmButtonText: string;
+  cancelButtonText: string;
+  styles: FormStyles;
 
   /**
    * Constructor for the FormData class.
-   * @param options - Options to initialize the form data.
+   * @param options - Named options to initialize the form data.
    */
-  constructor(options: {
-    title?: string;
-    messages?: string[];
-    rows?: FormRow[];
-    showConfirmButton?: boolean;
-    showCancelButton?: boolean;
-    confirmButtonText?: string;
-    cancelButtonText?: string;
-    styles?: FormStyles;
-  }) {
-    this.title = options.title ?? undefined;
+  constructor(options: Partial<FormData> = {}) {
+    this.title = options.title;
     this.messages = options.messages ?? [];
     this.rows = options.rows ?? [];
     this.showConfirmButton = options.showConfirmButton ?? true;

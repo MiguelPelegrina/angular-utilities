@@ -1,12 +1,9 @@
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import { FormTemplateComponent } from './form-template.component';
-import { MatButtonModule } from '@angular/material/button';
 import { Validators } from '@angular/forms';
-import { provideValidationErrorMessages } from '../../providers/validation-error-messages.provider';
 import { FormData } from '../../models/form-data.model';
+import { provideValidationErrorMessages } from '../../providers/validation-error-messages.provider';
 
-// TODO
-// - Add more stories
 type Story = StoryObj<FormTemplateComponent<object>>;
 
 export const Default: Story = {
@@ -85,12 +82,12 @@ export const NoForm: Story = {
 };
 
 const meta: Meta<FormTemplateComponent<object>> = {
-  title: 'FormTemplateComponent',
+  title: 'Form Template',
   component: FormTemplateComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [FormTemplateComponent, MatButtonModule],
+      imports: [FormTemplateComponent],
       providers: [...provideValidationErrorMessages()],
     }),
   ],

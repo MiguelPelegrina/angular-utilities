@@ -9,12 +9,12 @@ import {
 import { FormGroup } from '@angular/forms';
 import { FormData } from '../../models/form-data.model';
 import { FormDataBuilder as FormGroupBuilder } from '../../services/form-data.service';
-import { MaterialModule } from '../../shared/material.module';
-import { onTimeInput } from '../../utils/time-utils';
+import { MaterialModule } from '../../../shared/modules/material.module';
+import { onTimeInput } from '../../../shared/utils/time-utils';
 import { ValidationErrorMessages } from '../../interfaces/validation-error-messages.interface';
-import { ERROR_MESSAGES } from '../../providers/validation-error-messages.provider';
 import { FormControlComponent } from '../form-control/form-control.component';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../../shared/modules/shared.module';
+import { ERROR_MESSAGES } from '../../providers/validation-error-messages.provider';
 
 // TODO
 // Abstractions:
@@ -25,7 +25,10 @@ import { SharedModule } from '../../shared/shared.module';
   selector: 'lib-form-template',
   imports: [FormControlComponent, MaterialModule, SharedModule],
   templateUrl: './form-template.component.html',
-  styleUrls: ['./form-template.component.scss', '../../styles/buttons.scss'],
+  styleUrls: [
+    './form-template.component.scss',
+    '../../../shared/styles/buttons.scss',
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormTemplateComponent<T> implements OnInit {

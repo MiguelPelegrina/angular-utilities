@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FormElement } from '../../models/form-element.model';
 import { FormGroup } from '@angular/forms';
-import { SharedModule } from '../../shared/shared.module';
-import { MaterialModule } from '../../shared/material.module';
-import { onTimeInput } from '../../utils/time-utils';
+import { SharedModule } from '../../../shared/modules/shared.module';
+import { MaterialModule } from '../../../shared/modules/material.module';
+import { onTimeInput } from '../../../shared/utils/time-utils';
 import { ValidationError } from '../../pipes/validation-error.pipe';
 
 @Component({
