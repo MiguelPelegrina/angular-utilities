@@ -10,22 +10,38 @@ import { FormControl } from '@angular/forms';
 import { SearchService } from '../services/search.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 
+/**
+ * SearchBarComponent is a reusable search bar component.
+ * It allows users to input search terms and emits the search term
+ * after a specified debounce time.
+ */
 @Component({
   selector: 'lib-search-bar',
   imports: [MaterialModule, SharedModule],
   templateUrl: './search-bar.component.html',
-  styleUrl: './search-bar.component.scss',
+  styleUrls: ['./search-bar.component.scss', '../../shared/styles/styles.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBarComponent {
-  readonly placeholder = input<string>('Search...');
-  readonly debounce = input<number>(300);
-  readonly useService = input<boolean>(true);
-
-  readonly filter = output<string>();
-
+  // Fields
   searchControl = new FormControl('');
 
+  // Inputs
+  readonly placeholder = input<string>('Search...');
+  readonly debounce = input<number>(300);
+  // TODO Needs to be improved and tested
+  readonly useService = input<boolean>(false);
+  readonly width = input<string>('100%');
+  readonly minWidth = input<string>();
+  readonly maxWidth = input<string>();
+
+  // Outputs
+  readonly filter = output<string>();
+
+  /**
+   * Constructor for the SearchBarComponent.
+   * @param searchService - The search service to use for searching.
+   */
   constructor(private searchService: SearchService) {
     this.searchControl.setValue(this.searchService.getSearchTerm(), {
       emitEvent: false,
@@ -42,6 +58,9 @@ export class SearchBarComponent {
       });
   }
 
+  /**
+   * Clears the search input.
+   */
   clearSearch(): void {
     this.searchControl.setValue('');
   }

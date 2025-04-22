@@ -9,6 +9,7 @@ export const Default: Story = {
     placeholder: 'Search...',
     debounce: 300,
     useService: true,
+    width: '50%',
   },
 };
 

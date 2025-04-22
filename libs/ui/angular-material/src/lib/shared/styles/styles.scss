@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block&icon_names=close,delete,edit,search,thumb_down,thumb_up');
+
 $padding-small: 0.5rem;
 $border-color: #fafafa;
+
+.justify-content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 @media (max-width: 768px) {
   .mat-mdc-table[libTableResponsive] {

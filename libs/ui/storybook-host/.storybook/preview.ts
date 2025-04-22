@@ -9,6 +9,7 @@ import {
 import { TranslocoHttpLoader } from '../transloco-loader';
 import { LocaleManagerComponent } from '../locale-manager/locale-manager.component';
 import { fn } from '@storybook/test';
+import { MAT_ICON_DEFAULT_OPTIONS } from '@angular/material/icon';
 
 const preview: Preview = {
   decorators: [
@@ -29,7 +30,16 @@ const preview: Preview = {
     }),
     moduleMetadata({
       imports: [LocaleManagerComponent],
-      providers: [HttpClient, TranslocoService],
+      providers: [
+        HttpClient,
+        TranslocoService,
+        {
+          provide: MAT_ICON_DEFAULT_OPTIONS,
+          useValue: {
+            fontSet: 'material-symbols-outlined',
+          },
+        },
+      ],
     }),
     (story, context) => {
       const { locale } = context.globals;
@@ -48,7 +58,6 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    layout: 'centered',
   },
 };
 

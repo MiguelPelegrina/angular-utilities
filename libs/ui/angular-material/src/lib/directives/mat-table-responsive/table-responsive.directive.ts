@@ -8,7 +8,8 @@ import {
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
-// TODO Last element is shown differently, try to fix it.
+// TODO
+// - Adapt selection better to mobile
 /**
  * Directive responsible for making tables responsive and accessible by dinamically
  * updating DOM attributes based on changes in the table's structure or content.
@@ -17,6 +18,7 @@ import { map, takeUntil } from 'rxjs/operators';
   selector: '[libTableResponsive]',
 })
 export class TableResponsiveDirective implements AfterViewInit, OnDestroy {
+  // Fields
   private onDestroy$ = new Subject<boolean>();
 
   private thead!: HTMLTableSectionElement;
@@ -99,5 +101,6 @@ export class TableResponsiveDirective implements AfterViewInit, OnDestroy {
     this.tbodyObserver.disconnect();
 
     this.onDestroy$.next(true);
+    this.onDestroy$.complete();
   }
 }

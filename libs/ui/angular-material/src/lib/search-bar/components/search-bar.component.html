@@ -1,4 +1,8 @@
-<mat-form-field>
+<mat-form-field
+  [style.width]="width()"
+  [style.min-width]="minWidth()"
+  [style.max-width]="maxWidth()"
+>
   <mat-icon matPrefix fontSet="material-symbols-outlined">search</mat-icon>
   <input
     matInput
@@ -8,7 +12,7 @@
   />
   @if(searchControl.value){
   <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
-    <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
+    <mat-icon>close</mat-icon>
   </button>
   }
 </mat-form-field>
