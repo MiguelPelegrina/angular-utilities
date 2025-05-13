@@ -2,10 +2,12 @@
   "name": "@MiguelPelegrina/angular-material",
   "version": "0.0.5",
   "peerDependencies": {
+    "@angular/cdk": "^19.2.8",
     "@angular/common": "^19.2.5",
     "@angular/core": "^19.2.5",
     "@angular/forms": "~19.2.5",
-    "@angular/material": "^19.2.7"
+    "@angular/material": "^19.2.7",
+    "rxjs": "^7.8.2"
   },
   "sideEffects": false,
   "publishConfig": {
